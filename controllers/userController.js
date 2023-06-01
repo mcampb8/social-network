@@ -24,11 +24,10 @@ module.exports = {
       deleteUser(req, res) {
         User.findOneAndDelete({ _id: req.params.userId })
           .then((deletedUser) =>
-            !user
+            !deletedUser
               ? res.status(404).json({ message: 'No user with that ID' })
               : res.json(deletedUser)
           )
-          .then(() => res.json({ message: 'User and associated apps deleted!' }))
           .catch((err) => res.status(500).json(err));
       },
       updateUser(req, res) {
