@@ -1,11 +1,13 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
+  //Get All Thoughts
     getThoughts(req,res){
         Thought.find()
         .then((thoughts) => res.json(thoughts))
         .catch((err) => res.status(500).json(err));
     },
+    //Get one Thought by id
     getSingleThought(req, res) {
         Thought.findOne({ _id: req.params.thoughtId })
           .select('-__v')
@@ -16,11 +18,13 @@ module.exports = {
           )
           .catch((err) => res.status(500).json(err));
       },
+      //Create a Thought
       postThought(req, res) {
         Thought.create(req.body)
           .then((thought) => res.json(thought))
           .catch((err) => res.status(500).json(err));
       },
+      //Update a Thought
     updateThought(req,res){
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -36,6 +40,7 @@ module.exports = {
               res.status(500).json(err);
             })
     },
+    //Delete a Thought
     deleteThought(req,res){
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
         .then((deletedThought) =>
@@ -47,6 +52,7 @@ module.exports = {
             console.log(err);
         res.status(500).json(err)});
     },
+    //Create a Reaction
     createReaction (req,res){
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -62,6 +68,7 @@ module.exports = {
               res.status(500).json(err);
             })
     },
+    //Delete a Reaction
     deleteReaction (req,res){
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
